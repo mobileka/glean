@@ -1,0 +1,5 @@
+vendor/
+build/
+cmd/debug
+pkg/*/debug.test
+.env
