@@ -67,3 +67,8 @@ raw_ext:
 
 `glean` does not ask for confirmations and it does not put anything into your "Trash".
 If you made a mistake and it removed pictures of your 1 yo old daughter, please don't be upset with me.
+
+
+## License
+
+glean is an open-source software and licensed under the MIT License.
