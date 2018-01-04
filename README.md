@@ -38,12 +38,12 @@ A configuration file should look like this:
 
 ```
 ---
-jpeg_dir: . # should be relative to a directory from where you run `glean`. Confusing? I know. `.` sing means "current directory"
+jpeg_dir: . # should be relative to a directory from where you run `glean`. Confusing? I know. `.` means "current directory"
 jpeg_ext:
     - .jpeg
     - .jpg
 
-raw_dir: . # should be relative to a directory from where you run `glean`. Confusing? I know. `.` sing means "current directory"
+raw_dir: . # should be relative to a directory from where you run `glean`. Confusing? I know. `.` means "current directory"
 raw_ext:
     - .nef
     - .raw
@@ -51,7 +51,7 @@ raw_ext:
 ```
 
 `jpeg_dir` - where are your reference JPEG files located  
-`jpeg_ext` - a case-sensitive list of "reference" file extensions  
+`jpeg_ext` - a case-sensitive list of "reference" file extensions   
 
 `raw_dir` - where to look for corresponding RAW files  
 `raw_ext` - a case-sensitive list of "victim" extensions  

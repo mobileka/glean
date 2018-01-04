@@ -15,23 +15,23 @@ var (
 
 	jpegDir = kingpin.Flag(
 		"jd",
-		"a directory where JPEG files are located. Default:the current directory").String()
+		"a directory where JPEG files are located").String()
 
 	rawDir = kingpin.Flag(
 		"rd",
-		"a directory where RAW files are located. Default:the current directory").String()
+		"a directory where RAW files are located").String()
 
 	jpegExt = kingpin.Flag(
 		"je",
-		"a list of file extensions representing JPEG files. Default: [jpeg, jpg]").Strings()
+		"a list of file extensions representing JPEG files").Strings()
 
 	rawExt = kingpin.Flag(
 		"re",
-		"a list of file extensions representing RAW files. Default: [nef]").Strings()
+		"a list of file extensions representing RAW files").Strings()
 
 	dbg = kingpin.Flag(
 		"debug",
-		"a list of file extensions representing RAW files. Default: [nef]").
+		"run the tool in debug mode").
 		Default("false").Short('d').Bool()
 )
 
@@ -65,7 +65,6 @@ func main() {
 }
 
 func equipTheSerf() *glean.Serf {
-
 	start := []string{
 		"Why am I doing all de hard work?",
 		"Happily killing your files with 🔥",
