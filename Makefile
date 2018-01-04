@@ -4,14 +4,9 @@ OK_COLOR=\033[32;01m
 ERROR_COLOR=\033[31;01m
 WARN_COLOR=\033[33;01m
 
-# Local .env file
-ifneq ("$(wildcard .env)","")
-	include .env
-	export $(shell sed 's/=.*//' .env)
-endif
-
 # Vars
-BUILD_DIR ?= build/
+BUILD_DIR ?= build
+RES_DIR = resources
 NAME=glean
 REPO=github.com/mobileka/${NAME}
 SRC_DIRS=cmd
@@ -19,8 +14,7 @@ BINARY=glean
 BINARY_SRC=$(REPO)/cmd/${NAME}
 
 # Rules
-
-.PHONY: all all-reaction clean glide build install all-done-reaction all-dev-reaction
+.PHONY: all all-reaction clean glide build install all-done-reaction all-dev-reaction run
 
 all: all-reaction clean glide build install all-done-reaction
 
@@ -32,12 +26,13 @@ install:
 	@printf "$(OK_COLOR)Done 😒\n\n"
 
 build:
-	@printf "$(WARN_COLOR)😒 Building your stupid project\n"
+	@printf "$(WARN_COLOR)😒 Building...\n"
 	@go build -o ${BUILD_DIR}/${BINARY} -ldflags="-s -w" ${BINARY_SRC}
+	@cp ${RES_DIR}/glean.yaml ${BUILD_DIR}/
 	@printf "$(OK_COLOR)Done... 😒\n\n"
 
 glide:
-	@printf "$(WARN_COLOR)😒 Installing dependencies since 1891\n"
+	@printf "$(WARN_COLOR)😒 Installing dependencies since 1915\n"
 	@glide install
 	@printf "$(OK_COLOR)Done 😒\n\n"
 
@@ -65,4 +60,4 @@ all-dev-reaction:
 	@printf "$(ERROR_COLOR)No! $(WARN_COLOR)😡 Can you at least run them one by one? Lazy bastard.\n\n"
 
 all-done-reaction:
-	@printf "$(WARN_COLOR)😒 Let me pretend that I'm happy 🎉\n\n"
+	@printf "$(WARN_COLOR)😒 All done... Let me pretend that I'm happy 🎉\n\n"
