@@ -1,0 +1,8 @@
+package: github.com/mobileka/glean
+import:
+- package: gopkg.in/yaml.v2
+- package: gopkg.in/alecthomas/kingpin.v2
+  version: ^2.2.6
+- package: github.com/alecthomas/template
+- package: github.com/pkg/errors
+  version: ^0.8.0
