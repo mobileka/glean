@@ -50,11 +50,11 @@ raw_ext:
     - .dng
 ```
 
-`jpeg_dir` - where are your reference JPEG files located
-`jpeg_ext` - a case-sensitive list of "reference" file extensions
+`jpeg_dir` - where are your reference JPEG files located  
+`jpeg_ext` - a case-sensitive list of "reference" file extensions  
 
-`raw_dir` - where to look for corresponding RAW files
-`raw_ext` - a case-sensitive list of "victim" extensions
+`raw_dir` - where to look for corresponding RAW files  
+`raw_ext` - a case-sensitive list of "victim" extensions  
 
 ## Other usage scenarios
 
