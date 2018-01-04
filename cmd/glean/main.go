@@ -11,7 +11,6 @@ var (
 	cfg = kingpin.Flag(
 		"config",
 		"a path to the configuration file. Should include the filename. Default: ./glean.yaml").
-		Short('c').
 		String()
 
 	jpegDir = kingpin.Flag(
