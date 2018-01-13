@@ -11,6 +11,7 @@ import (
 )
 
 type filesystem struct {
+	CurDir string
 }
 
 func NewFilesystem() *filesystem {
@@ -18,16 +19,22 @@ func NewFilesystem() *filesystem {
 }
 
 func (f *filesystem) GetCurrentDirectory() (string, error) {
+	if f.CurDir != "" {
+		return f.CurDir, nil
+	}
+
 	dir, err := filepath.Abs("./")
 	if err != nil {
 		return "", errors.Wrap(err, "Unable to get the current directory")
 	}
 
+	f.CurDir = dir
+
 	return dir, nil
 }
 
 func (f *filesystem) ReadFiles(dir string) ([]os.FileInfo, error) {
-	files, err := ioutil.ReadDir(dir)
+	files, err := ioutil.ReadDir(f.CurDir + "/" + dir)
 	if err != nil {
 		return nil, errors.Wrapf(err, "Unable to read files from the following directory: %s", dir)
 	}
