@@ -55,14 +55,16 @@ func (g *glean) Run() error {
 		return err
 	}
 
-	JPEGMap := g.filesToMap(JPEGs)
+	filesToKeep := g.filesToMap(JPEGs)
+	g.dbg.Log("filesToKeep")
+	g.dbg.Log(filesToKeep)
 
 	RAWs, err := g.fs.ReadFiles(g.config.GetRawDir())
 	if err != nil {
 		return err
 	}
 
-	if err := g.glean(RAWs, JPEGMap); err != nil {
+	if err := g.glean(RAWs, filesToKeep); err != nil {
 		return err
 	}
 
@@ -84,9 +86,10 @@ func (g *glean) filesToMap(files []os.FileInfo) map[string]bool {
 	return result
 }
 
-func (g *glean) glean(RAWs []os.FileInfo, JPEGs map[string]bool) error {
+func (g *glean) glean(RAWs []os.FileInfo, toKeep map[string]bool) error {
 	var failedToRemove []string
 	var failedToRemoveErr error
+	gleanedNum := 0
 
 	for _, f := range RAWs {
 		fullPath := g.config.GetRawDir() + "/" + f.Name()
@@ -95,15 +98,20 @@ func (g *glean) glean(RAWs []os.FileInfo, JPEGs map[string]bool) error {
 		if !f.IsDir() && isRelevantExtension(ext, g.config.GetRawExt()) {
 			pathWithNoExtension := strings.Replace(fullPath, ext, "", 1)
 
-			if _, ok := JPEGs[pathWithNoExtension]; !ok {
+			if _, ok := toKeep[pathWithNoExtension]; !ok {
 				fmt.Println("Gleaning " + fullPath)
 				if err := g.fs.RemoveFile(fullPath); err != nil {
 					failedToRemoveErr = err
 					failedToRemove = append(failedToRemove, fullPath)
+				} else {
+					gleanedNum++
 				}
 			}
 		}
 	}
+
+	fmt.Printf("\nNumber of gleaned files: %d\n", gleanedNum)
+	fmt.Printf("Number of failed files: %d\n", len(failedToRemove))
 
 	if failedToRemoveErr != nil {
 		return errors.Wrapf(failedToRemoveErr, "Unable to remove one or several files: %s", failedToRemove)
@@ -114,7 +122,7 @@ func (g *glean) glean(RAWs []os.FileInfo, JPEGs map[string]bool) error {
 
 func isRelevantExtension(str string, slice []string) bool {
 	for _, el := range slice {
-		if str == el {
+		if strings.ToLower(str) == strings.ToLower(el) {
 			return true
 		}
 	}
