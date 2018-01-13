@@ -10,7 +10,7 @@ func NewDebugger(debug bool) *debugger {
 	return &debugger{debug: debug}
 }
 
-func (d *debugger) Log(message string) {
+func (d *debugger) Log(message ...interface{}) {
 	if d.debug {
 		fmt.Println(message)
 	}

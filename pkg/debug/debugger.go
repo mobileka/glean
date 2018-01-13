@@ -1,6 +1,6 @@
 package debug
 
 type Debugger interface {
-	Log(message string)
+	Log(message ...interface{})
 	Logf(format string, args ...interface{})
 }
