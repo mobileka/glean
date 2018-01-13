@@ -66,7 +66,7 @@ func main() {
 
 func equipTheSerf() *glean.Serf {
 	start := []string{
-		"Why am I doing all de hard work?",
+		"Why am I doing all the hard work?",
 		"Happily killing your files with 🔥",
 		"I'm not crazy about gleaning your shit, ya know?",
 		"You're so lazy that you'd marry a pregnant woman",
@@ -76,7 +76,7 @@ func equipTheSerf() *glean.Serf {
 	done := []string{
 		"Let me pretend that I'm happy 🎉",
 		"One day I'll glean you too",
-		"I hope that I gleaned some important files, so you'll glean me from your computer",
+		"I hope that I gleaned something important 😏",
 		"Go glean yourself"}
 
 	return glean.NewSerf(start, done)

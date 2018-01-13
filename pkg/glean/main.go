@@ -40,7 +40,7 @@ func (g *glean) Run() error {
 	g.dbg.Logf("Config Content:\n%s\n", confContent)
 
 	if err = g.config.Unmarshal(confContent); err != nil {
-		return errors.Wrapf(err, "Unable to unmarshall the config file: %s", confContent)
+		return errors.Wrapf(err, "Unable to unmarshal the config file: %s", confContent)
 	}
 	g.dbg.Logf("Unserialized Config Contents: %s\n", g.config)
 

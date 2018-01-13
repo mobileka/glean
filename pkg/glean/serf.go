@@ -24,5 +24,5 @@ func (g *Serf) ExpressHowAmusedYouAreToStart() {
 func (g *Serf) ExpressHowHappyYouAreWithResults() {
 	rand.Seed(time.Now().Unix())
 
-	fmt.Println("\n😒" + g.done[rand.Intn(len(g.done))] + "\n")
+	fmt.Println("\n😒  " + g.done[rand.Intn(len(g.done))] + "\n")
 }
