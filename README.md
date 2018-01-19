@@ -12,9 +12,9 @@ My workflow is like follows:
 
 It's simple enough, but, on the other hand, it's a bit annoying that I have to manually write down names of the bad JPEG photos and then manually remove the RAW files.
 
-I built `glean` to do this for me automatically.
+I've built `glean` to do this for me automatically.
 
-With `glean` the same workflow looks like this:
+With `glean`, the same workflow looks like follows:
 
 1. create a configuration file for `glean` (only once)
 2. review photos in JPEG
