@@ -27,7 +27,7 @@ all-dev: all-dev-reaction clean glide-dev build install all-done-reaction
 
 $(PLATFORMS):
 	@printf "$(WARN_COLOR)😒 Building $(os)-$(arch)...$(NO_COLOR)\n"
-	GOOS=$(os) GOARCH=$(arch) go build  -o ${BUILD_DIR}/$(os)-$(arch)/${BINARY} -ldflags="-s -w" ${BINARY_SRC}
+	GOOS=$(os) GOARCH=$(arch) go build  -o ${BUILD_DIR}/${BINARY}-$(os)-$(arch) -ldflags="-s -w" ${BINARY_SRC}
 	@cp ${RES_DIR}/glean.yaml ${BUILD_DIR}/
 	@printf "$(OK_COLOR)Done... 😒\n\n"
 
