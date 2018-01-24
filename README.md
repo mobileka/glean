@@ -49,10 +49,10 @@ target_ext:
 ```
 
 `ref_dir` - where are your reference files located  
-`ref_ext` - a case-sensitive list of "reference" file extensions  
+`ref_ext` - a list of "reference" file extensions  
 
 `target_dir` - where to look for corresponding files to be removed  
-`target_ext` - a case-sensitive list of extensions of the corresponding files  
+`target_ext` - a list of extensions of the corresponding files  
 
 # WARNING
 
