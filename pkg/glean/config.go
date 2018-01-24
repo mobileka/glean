@@ -3,23 +3,23 @@ package glean
 import "gopkg.in/yaml.v2"
 
 type config struct {
-	path    string   `yaml:"-"`
-	JpegDir string   `yaml:"jpeg_dir"`
-	JpegExt []string `yaml:"jpeg_ext"`
-	RawDir  string   `yaml:"raw_dir"`
-	RawExt  []string `yaml:"raw_ext"`
+	path      string   `yaml:"-"`
+	RefDir    string   `yaml:"ref_dir"`
+	RefExt    []string `yaml:"ref_ext"`
+	TargetDir string   `yaml:"target_dir"`
+	TargetExt []string `yaml:"target_ext"`
 }
 
 type Config interface {
 	GetPath() string
-	SetJpegDir(val string) *config
-	SetRawDir(val string) *config
-	SetJpegExt(val []string) *config
-	SetRawExt(val []string) *config
-	GetJpegDir() string
-	GetRawDir() string
-	GetJpegExt() []string
-	GetRawExt() []string
+	SetRefDir(val string) *config
+	SetTargetDir(val string) *config
+	SetRefExt(val []string) *config
+	SetTargetExt(val []string) *config
+	GetRefDir() string
+	GetTargetDir() string
+	GetRefExt() []string
+	GetTargetExt() []string
 	Unmarshal(content []byte) error
 }
 
@@ -37,52 +37,52 @@ func (c *config) GetPath() string {
 	return c.path
 }
 
-func (c *config) SetJpegDir(val string) *config {
+func (c *config) SetRefDir(val string) *config {
 	if val != "" {
-		c.JpegDir = val
+		c.RefDir = val
 	}
 
 	return c
 }
 
-func (c *config) SetRawDir(val string) *config {
+func (c *config) SetTargetDir(val string) *config {
 	if val != "" {
-		c.RawDir = val
+		c.TargetDir = val
 	}
 
 	return c
 }
 
-func (c *config) SetJpegExt(val []string) *config {
+func (c *config) SetRefExt(val []string) *config {
 	if len(val) > 0 {
-		c.JpegExt = val
+		c.RefExt = val
 	}
 
 	return c
 }
 
-func (c *config) SetRawExt(val []string) *config {
+func (c *config) SetTargetExt(val []string) *config {
 	if len(val) > 0 {
-		c.RawExt = val
+		c.TargetExt = val
 	}
 
 	return c
 }
 
-func (c *config) GetJpegDir() string {
-	return c.JpegDir
+func (c *config) GetRefDir() string {
+	return c.RefDir
 }
 
-func (c *config) GetRawDir() string {
-	return c.RawDir
+func (c *config) GetTargetDir() string {
+	return c.TargetDir
 }
 
-func (c *config) GetJpegExt() []string {
-	return c.JpegExt
+func (c *config) GetRefExt() []string {
+	return c.RefExt
 }
 
-func (c *config) GetRawExt() []string {
-	return c.RawExt
+func (c *config) GetTargetExt() []string {
+	return c.TargetExt
 }
 
 func (c *config) Unmarshal(content []byte) error {

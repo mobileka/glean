@@ -1,9 +1,9 @@
 ---
-jpeg_dir: .
-jpeg_ext:
-    - .jpeg
+ref_dir: .
+ref_ext:
+    - .ref
     - .jpg
 
-raw_dir: .
-raw_ext:
+target_dir: .
+target_ext:
     - .nef

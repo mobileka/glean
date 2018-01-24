@@ -13,10 +13,10 @@ import (
 )
 
 type Arguments struct {
-	JpegDir string
-	RawDir  string
-	JpegExt []string
-	RawExt  []string
+	RefDir    string
+	TargetDir string
+	RefExt    []string
+	TargetExt []string
 }
 
 type glean struct {
@@ -44,27 +44,27 @@ func (g *glean) Run() error {
 	}
 	g.dbg.Logf("Unserialized Config Contents: %s\n", g.config)
 
-	g.config.SetJpegDir(g.argv.JpegDir).
-		SetRawDir(g.argv.RawDir).
-		SetJpegExt(g.argv.JpegExt).
-		SetRawExt(g.argv.RawExt)
+	g.config.SetRefDir(g.argv.RefDir).
+		SetTargetDir(g.argv.TargetDir).
+		SetRefExt(g.argv.RefExt).
+		SetTargetExt(g.argv.TargetExt)
 	g.dbg.Logf("Customised Config:\n%s\n", g.config)
 
-	JPEGs, err := g.fs.ReadFiles(g.config.GetJpegDir())
+	RefFiles, err := g.fs.ReadFiles(g.config.GetRefDir())
 	if err != nil {
 		return err
 	}
 
-	filesToKeep := g.filesToMap(JPEGs)
+	filesToKeep := g.filesToMap(RefFiles)
 	g.dbg.Log("filesToKeep")
 	g.dbg.Log(filesToKeep)
 
-	RAWs, err := g.fs.ReadFiles(g.config.GetRawDir())
+	TargetFiles, err := g.fs.ReadFiles(g.config.GetTargetDir())
 	if err != nil {
 		return err
 	}
 
-	if err := g.glean(RAWs, filesToKeep); err != nil {
+	if err := g.glean(TargetFiles, filesToKeep); err != nil {
 		return err
 	}
 
@@ -74,10 +74,10 @@ func (g *glean) Run() error {
 func (g *glean) filesToMap(files []os.FileInfo) map[string]bool {
 	var result = map[string]bool{}
 	for _, f := range files {
-		fullPath := g.config.GetRawDir() + "/" + f.Name()
+		fullPath := g.config.GetTargetDir() + "/" + f.Name()
 		ext := g.fs.GetExtension(fullPath)
 
-		if !f.IsDir() && isRelevantExtension(ext, g.config.GetJpegExt()) {
+		if !f.IsDir() && isRelevantExtension(ext, g.config.GetRefExt()) {
 			pathWithNoExtension := g.fs.RemoveExtension(fullPath)
 			result[pathWithNoExtension] = true
 		}
@@ -86,16 +86,16 @@ func (g *glean) filesToMap(files []os.FileInfo) map[string]bool {
 	return result
 }
 
-func (g *glean) glean(RAWs []os.FileInfo, toKeep map[string]bool) error {
+func (g *glean) glean(TargetFiles []os.FileInfo, toKeep map[string]bool) error {
 	var failedToRemove []string
 	var failedToRemoveErr error
 	gleanedNum := 0
 
-	for _, f := range RAWs {
-		fullPath := g.config.GetRawDir() + "/" + f.Name()
+	for _, f := range TargetFiles {
+		fullPath := g.config.GetTargetDir() + "/" + f.Name()
 		ext := g.fs.GetExtension(fullPath)
 
-		if !f.IsDir() && isRelevantExtension(ext, g.config.GetRawExt()) {
+		if !f.IsDir() && isRelevantExtension(ext, g.config.GetTargetExt()) {
 			pathWithNoExtension := strings.Replace(fullPath, ext, "", 1)
 
 			if _, ok := toKeep[pathWithNoExtension]; !ok {

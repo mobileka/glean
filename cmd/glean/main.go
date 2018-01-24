@@ -13,21 +13,21 @@ var (
 		"a path to the configuration file. Should include the filename. Default: ./glean.yaml").
 		String()
 
-	jpegDir = kingpin.Flag(
+	refDir = kingpin.Flag(
 		"jd",
-		"a directory where JPEG files are located").String()
+		"a directory where the reference files are located").String()
 
-	rawDir = kingpin.Flag(
+	targetDir = kingpin.Flag(
 		"rd",
-		"a directory where RAW files are located").String()
+		"a directory where the target files are located").String()
 
-	jpegExt = kingpin.Flag(
+	refExt = kingpin.Flag(
 		"je",
-		"a list of file extensions representing JPEG files").Strings()
+		"a list of file extensions representing the reference files").Strings()
 
-	rawExt = kingpin.Flag(
+	targetExt = kingpin.Flag(
 		"re",
-		"a list of file extensions representing RAW files").Strings()
+		"a list of file extensions representing the target files").Strings()
 
 	dbg = kingpin.Flag(
 		"debug",
@@ -41,7 +41,7 @@ func main() {
 
 	serf := equipTheSerf()
 
-	argv := glean.Arguments{JpegDir: *jpegDir, RawDir: *rawDir, JpegExt: *jpegExt, RawExt: *rawExt}
+	argv := glean.Arguments{RefDir: *refDir, TargetDir: *targetDir, RefExt: *refExt, TargetExt: *targetExt}
 
 	debugger := debug.NewDebugger(*dbg)
 	fs := filesystem.NewFilesystem()

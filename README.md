@@ -1,29 +1,26 @@
 *Draft*
 
-`glean` is a tool for photographers who prefer taking photos in RAW *and* JPEG at the same time.
+`glean` is a tool allowing to remove files corresponding to removed reference files.
 
 ## A simple usage case
 
-My workflow is like follows:
+I take photos in both, JPEG and RAW and my typical workflow looks like follows:
 
-1. review photos in JPEG (because it takes a lot of time to cycle through RAW files)
-2. remove all bad photos in JPEG and save the names of the removed files
-3. remove RAW files corresponding to the names of the bad photos in JPEG
+1. review photos in JPEG (because it's much faster than cycling through RAW files)
+2. remove all bad photos in JPEG which I don't like
+3. then remove corresponding RAW files
 
-It's simple enough, but, on the other hand, it's a bit annoying that I have to manually write down names of the bad JPEG photos and then manually remove the RAW files.
+The third step is a bit annoying to do manually, so I built `glean` to do this for me automatically.
 
-I've built `glean` to do this for me automatically.
-
-With `glean`, the same workflow looks like follows:
+With `glean` the same workflow looks like follows:
 
 1. create a configuration file for `glean` (only once)
-2. review photos in JPEG
-3. remove all the bad JPEG photos
-4. run `glean` and it will automatically remove corresponding RAW files
+2. remove all bad photos in JPEG
+3. run `glean` and it will automatically remove all corresponding RAW files
 
 ## Configuration
 
-In order to minimize chances of accidentally removing valuable RAW files, `glean` requires you to create a configuration file.
+In order to minimize chances of accidentally removing valuable files, `glean` requires you to create a configuration file.
 
 If you run `glean` from a directory which has a file called `glean.yaml`, it will automatically use this file as a configuration.
 
@@ -38,30 +35,23 @@ A configuration file should look like this:
 
 ```
 ---
-jpeg_dir: . # should be relative to a directory from where you run `glean`. Confusing? I know. `.` means "current directory"
-jpeg_ext:
+ref_dir: . # should be relative to a directory from where you run `glean`. `.` means "current directory"
+ref_ext:
     - .jpeg
     - .jpg
 
-raw_dir: . # should be relative to a directory from where you run `glean`. Confusing? I know. `.` means "current directory"
-raw_ext:
+target_dir: . # should be relative to a directory from where you run `glean`. `.` means "current directory"
+target_ext:
     - .nef
     - .raw
     - .dng
 ```
 
-`jpeg_dir` - where are your reference JPEG files located  
-`jpeg_ext` - a case-sensitive list of "reference" file extensions   
+`ref_dir` - where are your reference files located  
+`ref_ext` - a case-sensitive list of "reference" file extensions  
 
-`raw_dir` - where to look for corresponding RAW files  
-`raw_ext` - a case-sensitive list of "victim" extensions  
-
-## Other usage scenarios
-
-`glean` can be used with other file extensions provided that:
-
-1. you have reference files with a certain extensions (e.g. `.ref`, and `.reference`)
-2. you have other files with different extensions which have to be removed if there're no `.ref` files with the same name
+`target_dir` - where to look for corresponding files to be removed  
+`target_ext` - a case-sensitive list of extensions of the corresponding files  
 
 # WARNING
 
