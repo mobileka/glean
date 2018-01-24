@@ -1,10 +1,11 @@
-*Draft*
+![glean](resources/glean.png)
 
-`glean` is a tool allowing to remove files corresponding to removed reference files.
+`glean` helps you remove files corresponding to removed _reference_ files.
+
 
 ## A simple usage case
 
-I take photos in both, JPEG and RAW and my typical workflow looks like follows:
+I take photos in both JPEG and RAW formats and my typical workflow looks like follows:
 
 1. review photos in JPEG (because it's much faster than cycling through RAW files)
 2. remove all bad photos in JPEG which I don't like
