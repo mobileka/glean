@@ -12,24 +12,26 @@ REPO=github.com/mobileka/${NAME}
 SRC_DIRS=cmd
 BINARY=glean
 BINARY_SRC=$(REPO)/cmd/${NAME}
+PLATFORMS=linux/amd64 linux/386 windows/amd64 windows/386 darwin/amd64 darwin/386
+
+tmp = $(subst /, ,$@)
+os = $(word 1, $(tmp))
+arch = $(word 2, $(tmp))
 
 # Rules
-.PHONY: all all-reaction clean glide build install all-done-reaction all-dev-reaction run
+.PHONY: all all-reaction clean glide build install all-done-reaction all-dev-reaction run $(PLATFORMS)
 
 all: all-reaction clean glide build install all-done-reaction
 
 all-dev: all-dev-reaction clean glide-dev build install all-done-reaction
 
-install:
-	@printf "$(WARN_COLOR)😒 Installing...\n"
-	go install -v $(BINARY_SRC)
-	@printf "$(OK_COLOR)Done 😒\n\n"
-
-build:
-	@printf "$(WARN_COLOR)😒 Building...\n"
-	@go build -o ${BUILD_DIR}/${BINARY} -ldflags="-s -w" ${BINARY_SRC}
+$(PLATFORMS):
+	@printf "$(WARN_COLOR)😒 Building $(os)-$(arch)...$(NO_COLOR)\n"
+	GOOS=$(os) GOARCH=$(arch) go build  -o ${BUILD_DIR}/$(os)-$(arch)/${BINARY} -ldflags="-s -w" ${BINARY_SRC}
 	@cp ${RES_DIR}/glean.yaml ${BUILD_DIR}/
 	@printf "$(OK_COLOR)Done... 😒\n\n"
+
+build: $(PLATFORMS)
 
 glide:
 	@printf "$(WARN_COLOR)😒 Installing dependencies since 1915\n"
