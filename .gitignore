@@ -3,3 +3,4 @@ build/
 cmd/debug
 pkg/*/debug.test
 .env
+glean.afdesign
