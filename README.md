@@ -9,7 +9,7 @@ I take photos in both JPEG and RAW formats and my typical workflow looks like fo
 
 1. review photos in JPEG (because it's much faster than cycling through RAW files)
 2. remove all bad photos in JPEG which I don't like
-3. then remove corresponding RAW files
+3. then remove RAW files that have names matching the removed JPEG files (e.g. `1.jpeg` and `1.raw`)
 
 The third step is a bit annoying to do manually, so I built `glean` to do this for me automatically.
 
@@ -56,8 +56,8 @@ target_ext:
 
 # WARNING
 
-`glean` does not ask for confirmations and it does not put anything into your "Trash".
-If you made a mistake and it removed pictures of your 1 yo old daughter, please don't be upset with me.
+`glean` does not ask for confirmation and it does not put anything into the "Trash".
+If you made a mistake and it removed pictures of your 1 yo daughter, I'm really sorry but also don't be upset with me 🙈
 
 
 ## License
